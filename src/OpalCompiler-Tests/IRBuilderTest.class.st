@@ -23,6 +23,25 @@ IRBuilderTest class >> testToPush: anObject [
 	TestToPush := anObject
 ]
 
+{ #category : #tests }
+IRBuilderTest >> testAddVector [
+	| iRMethod aCompiledMethod |
+	
+	iRMethod := IRBuilder buildIR: [ :builder |
+		builder
+				numArgs: 2; 		
+				addTemps: { #firstVector. #secondVector };
+				pushTemp: #firstVector;
+				pushTemp: #secondVector;
+				addVector;
+				returnTop
+		 ].
+
+	aCompiledMethod := iRMethod compiledMethod.
+	self assert: (aCompiledMethod isKindOf: CompiledMethod).
+	^iRMethod
+]
+
 { #category : #'tests - builder' }
 IRBuilderTest >> testBuildMethod [
 	|  aCompiledMethod |

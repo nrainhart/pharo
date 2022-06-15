@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #visiting }
+IRVisitor >> visitAddVector: anIRAddVector [ 
+	
+	
+]
+
+{ #category : #visiting }
 IRVisitor >> visitBlockReturnTop: blockReturnTop [
 ]
 
@@ -60,6 +66,10 @@ IRVisitor >> visitPopIntoTemp: tmp [
 
 { #category : #visiting }
 IRVisitor >> visitPushArray: pushArray [
+]
+
+{ #category : #visiting }
+IRVisitor >> visitPushArrayToRegister: pushArrayToRegister [
 ]
 
 { #category : #visiting }
@@ -133,6 +143,10 @@ IRVisitor >> visitStoreInstVar: storeInstVar [
 
 { #category : #visiting }
 IRVisitor >> visitStoreLiteralVariable: storeLiteralVariable [
+]
+
+{ #category : #visiting }
+IRVisitor >> visitStoreRegisterIntoArray: storeRegisterIntoArray [ 
 ]
 
 { #category : #visiting }

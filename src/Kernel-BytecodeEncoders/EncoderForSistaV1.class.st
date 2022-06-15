@@ -266,6 +266,9 @@ literal which is a Smi
 Class {
 	#name : #EncoderForSistaV1,
 	#superclass : #BytecodeEncoder,
+	#instVars : [
+		'genPushArrayToRegister'
+	],
 	#category : #'Kernel-BytecodeEncoders'
 }
 
@@ -900,6 +903,12 @@ EncoderForSistaV1 class >> unusedBytecode [
 ]
 
 { #category : #'bytecode generation' }
+EncoderForSistaV1 >> genAddVector [
+	
+	stream nextPut: 236; nextPut: 0.
+]
+
+{ #category : #'bytecode generation' }
 EncoderForSistaV1 >> genBranchPopFalse: distance [
 	(distance > 0 and: [distance < 9]) ifTrue:
 		["192-199	11000 iii			Pop and Jump 0n False iii + 1 (i.e., 1 through 8)"
@@ -1015,6 +1024,12 @@ EncoderForSistaV1 >> genNop [
 EncoderForSistaV1 >> genPop [
 	"216		11011000			Pop Stack Top"
 	stream nextPut: 216
+]
+
+{ #category : #'as yet unclassified' }
+EncoderForSistaV1 >> genPushArrayToRegister [
+
+	stream nextPut: 236; nextPut: 1.
 ]
 
 { #category : #'bytecode generation' }
@@ -1449,6 +1464,12 @@ EncoderForSistaV1 >> genStorePopTemp: tempIndex [
 	stream
 		nextPut: 242;
 		nextPut: tempIndex
+]
+
+{ #category : #'as yet unclassified' }
+EncoderForSistaV1 >> genStoreRegisterIntoArray [
+
+	stream nextPut: 236; nextPut: 2.
 ]
 
 { #category : #'bytecode generation' }

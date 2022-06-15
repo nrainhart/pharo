@@ -111,6 +111,12 @@ IRTranslator >> trailer: aTrailer [
 ]
 
 { #category : #visiting }
+IRTranslator >> visitAddVector: anAddVector [
+
+	^ gen addVector
+]
+
+{ #category : #visiting }
 IRTranslator >> visitBlockReturnTop: blockReturnTop [
 
 	gen blockReturnTop
@@ -192,6 +198,11 @@ IRTranslator >> visitPushArray: array [
 			gen pushConsArray: array size ]
 		ifFalse: [
 			gen pushNewArray: array size ]
+]
+
+{ #category : #visiting }
+IRTranslator >> visitPushArrayToRegister: pushArrayToRegister [
+	^ gen pushArrayToRegister
 ]
 
 { #category : #visiting }
@@ -313,6 +324,11 @@ IRTranslator >> visitStoreInstVar: instVar [
 IRTranslator >> visitStoreLiteralVariable: var [
 
 	gen storeIntoLiteralVariable: var association
+]
+
+{ #category : #visiting }
+IRTranslator >> visitStoreRegisterIntoArray: storeRegisterIntoArray [
+	gen storeRegisterIntoArray.
 ]
 
 { #category : #visiting }

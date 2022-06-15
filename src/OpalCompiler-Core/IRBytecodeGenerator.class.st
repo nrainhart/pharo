@@ -121,6 +121,15 @@ IRBytecodeGenerator >> addProperties: cm [
 			properties pragmas do: [ :each | each method: cm ] ]
 ]
 
+{ #category : #bytecodes }
+IRBytecodeGenerator >> addVector [
+
+	stack pop: 2.
+	stack push.
+	
+	^ encoder genAddVector
+]
+
 { #category : #accessing }
 IRBytecodeGenerator >> additionalLiterals: aSet [
 	additionalLiterals := aSet.
@@ -501,6 +510,15 @@ IRBytecodeGenerator >> properties: propDict [
 	properties := propDict.
 ]
 
+{ #category : #bytecodes }
+IRBytecodeGenerator >> pushArrayToRegister [
+
+	stack pop: 2.
+	stack push.
+	
+	^ encoder genPushArrayToRegister
+]
+
 { #category : #instructions }
 IRBytecodeGenerator >> pushConsArray: size [
 	stack push.
@@ -720,6 +738,14 @@ IRBytecodeGenerator >> storePopRemoteTemp: tempIndex inVectorAt: tempVectorIndex
 IRBytecodeGenerator >> storePopTemp: index [
 	stack pop. 
 	encoder genStorePopTemp: index - 1
+]
+
+{ #category : #visiting }
+IRBytecodeGenerator >> storeRegisterIntoArray [
+	stack pop: 3.
+	stack push.
+	
+	^ encoder genStoreRegisterIntoArray
 ]
 
 { #category : #instructions }

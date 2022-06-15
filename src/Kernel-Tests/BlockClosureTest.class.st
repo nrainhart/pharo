@@ -521,6 +521,16 @@ BlockClosureTest >> testValueWithExitContinue [
 ]
 
 { #category : #'tests - evaluating' }
+BlockClosureTest >> testValueWithExitValue [
+	| val |
+	val := [ :exit | 
+		1 to: 10 do: [ :i | i = 4 ifTrue: [ exit value: i ] ]
+	] valueWithExitValue.
+
+	self assert: val equals: 4
+]
+
+{ #category : #'tests - evaluating' }
 BlockClosureTest >> testValueWithPossibleArgs [
 	| block blockWithArg blockWith2Arg |
 	block := [ 1 ].

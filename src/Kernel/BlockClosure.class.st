@@ -873,6 +873,12 @@ BlockClosure >> valueWithExit [
 ]
 
 { #category : #evaluating }
+BlockClosure >> valueWithExitValue [
+
+    ^ self value: [ :val | ^ val ]
+]
+
+{ #category : #evaluating }
 BlockClosure >> valueWithInterval: aDelay [
 	"Executes the block every x milliseconds specified in arguments. Answers the process, so you can terminate it"
 	

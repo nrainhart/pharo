@@ -29,6 +29,12 @@ Class {
 }
 
 { #category : #'instance creation' }
+IRInstruction class >> addVector [
+	
+	^ IRAddVector new
+]
+
+{ #category : #'instance creation' }
 IRInstruction class >> blockReturnTop [
 	^ IRBlockReturnTop new
 ]
@@ -45,6 +51,11 @@ IRInstruction class >> createTempVectorNamed: aTempVectorName withVars: anArray 
 { #category : #'instance creation' }
 IRInstruction class >> popTop [
 	^ IRPop new
+]
+
+{ #category : #'as yet unclassified' }
+IRInstruction class >> pushArrayToRegister [
+	^ IRPushArrayToRegister new.
 ]
 
 { #category : #'instance creation' }
@@ -170,6 +181,11 @@ IRInstruction class >> storeIntoLiteralVariable: object [
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+IRInstruction class >> storeRegisterIntoArray [
+	^ IRStoreRegisterIntoArray new
+]
+
 { #category : #'instance creation' }
 IRInstruction class >> storeRemoteTemp: aName inVectorAt: nameOfVector [
 	^ IRStoreRemoteTemp new
@@ -187,7 +203,8 @@ IRInstruction class >> storeTemp: aName [
 
 { #category : #visiting }
 IRInstruction >> accept: aVisitor [
-	self subclassResponsibility
+	
+	^ aVisitor visitAddVector: self
 ]
 
 { #category : #adding }
@@ -338,6 +355,7 @@ IRInstruction >> nonBodySuccessorSequences [
 
 { #category : #printing }
 IRInstruction >> printOn: aStream [
+
 	IRPrinter new
 			stream: aStream;
 			visitNode: self

@@ -108,6 +108,12 @@ IRBuilder >> addTemps: newKeys [
 	newKeys do: [ :key | self addTemp: key ]
 ]
 
+{ #category : #bytecodes }
+IRBuilder >> addVector [
+	
+	self add: (IRInstruction addVector)
+]
+
 { #category : #initialize }
 IRBuilder >> additionalLiterals:  literals [
 	"Add this literal at the end of the literal array if there is space left"
@@ -290,6 +296,11 @@ IRBuilder >> properties: aDict [
 	ir properties: aDict
 ]
 
+{ #category : #'as yet unclassified' }
+IRBuilder >> pushArrayToRegister [
+	self add: (IRInstruction pushArrayToRegister)
+]
+
 { #category : #instructions }
 IRBuilder >> pushConsArray: size [
 
@@ -424,6 +435,12 @@ IRBuilder >> storeInstVar: name [
 IRBuilder >> storeIntoLiteralVariable: name [
 	
 	^self add: (IRInstruction storeIntoLiteralVariable: name)
+]
+
+{ #category : #'as yet unclassified' }
+IRBuilder >> storeRegisterIntoArray [
+	
+	^ self add: (IRInstruction storeRegisterIntoArray)
 ]
 
 { #category : #instructions }

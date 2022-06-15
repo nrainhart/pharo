@@ -27,6 +27,12 @@ IRPrinter >> stream: stringWriteStream [
 ]
 
 { #category : #visiting }
+IRPrinter >> visitAddVector: addVector [
+	  
+	stream nextPutAll: 'addVector'
+]
+
+{ #category : #visiting }
 IRPrinter >> visitBlockReturnTop: blockReturnTop [
 
 	stream nextPutAll: 'blockReturnTop'.
@@ -104,6 +110,12 @@ IRPrinter >> visitPushArray: array [
 		ifFalse: [
 			stream nextPutAll: 'pushNewArray: ' ].
 	array size printOn: stream.
+]
+
+{ #category : #visiting }
+IRPrinter >> visitPushArrayToRegister:  pushArrayToRegister [
+	
+	stream nextPutAll: 'pushArrayToRegister'
 ]
 
 { #category : #visiting }
@@ -242,6 +254,12 @@ IRPrinter >> visitStoreLiteralVariable: var [
 	stream nextPutAll: 'storeLiteralVariable: '.
 	object isVariableBinding ifTrue: [^ stream nextPutAll: object key].
 	object printOn: stream.
+]
+
+{ #category : #visiting }
+IRPrinter >> visitStoreRegisterIntoArray:  storeRegisterIntoArray [
+	
+	stream nextPutAll: 'storeRegisterIntoArray'
 ]
 
 { #category : #visiting }

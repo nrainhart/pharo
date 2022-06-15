@@ -8,6 +8,11 @@ Class {
 	#category : #'Kernel-Methods'
 }
 
+{ #category : #'extended instruction decoding' }
+InstructionClient >> addVector [
+
+]
+
 { #category : #'instruction decoding' }
 InstructionClient >> blockReturnConstant: value [ 
 	"Return Constant From Block bytecode."
@@ -72,6 +77,16 @@ InstructionClient >> jump: offset withInterpreter: anInterpreter [
 ]
 
 { #category : #'instruction decoding' }
+InstructionClient >> mappedInlinePrimitive: extensionBytecodeNumber [
+
+	({ 
+		 [ self addVector ].
+		 [ self pushArrayToRegister ].
+		 [ self storeRegisterIntoArray ] } at: extensionBytecodeNumber + 1)
+		value
+]
+
+{ #category : #'instruction decoding' }
 InstructionClient >> methodReturnConstant: value [ 
 	"Return Constant bytecode."
 ]
@@ -120,6 +135,10 @@ InstructionClient >> pushActiveContext [
 { #category : #'instruction decoding' }
 InstructionClient >> pushActiveProcess [
 	"Push Active Process On Top Of Its Own Stack bytecode."
+]
+
+{ #category : #'extended instruction decoding' }
+InstructionClient >> pushArrayToRegister [
 ]
 
 { #category : #'instruction decoding' }
@@ -203,17 +222,13 @@ InstructionClient >> storeIntoTemporaryVariable: offset [
 	"Store Top Of Stack Into Temporary Variable Of Method bytecode."
 ]
 
-{ #category : #'instruction decoding' }
-InstructionClient >> trap [
-	"send the class trap message to the current context."
+{ #category : #'extended instruction decoding' }
+InstructionClient >> storeRegisterIntoArray [
 ]
 
 { #category : #'instruction decoding' }
-InstructionClient >> trapIfNotInstanceOf: behaviorOrArrayOfBehavior [ 
-	"If the top of stack is not an instance of either the argument, or, if the
-	argument is an Array,
-	any of the elements of the argument, send the class trap message
-	to the current context."
+InstructionClient >> trap [
+	"send the class trap message to the current context."
 ]
 
 { #category : #'instruction decoding' }
