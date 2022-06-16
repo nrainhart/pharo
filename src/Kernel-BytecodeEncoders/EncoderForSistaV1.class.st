@@ -903,7 +903,13 @@ EncoderForSistaV1 class >> unusedBytecode [
 ]
 
 { #category : #'bytecode generation' }
-EncoderForSistaV1 >> genAddVector [
+EncoderForSistaV1 >> genAddFloat32Vector [
+	
+	stream nextPut: 236; nextPut: 0.
+]
+
+{ #category : #'bytecode generation' }
+EncoderForSistaV1 >> genAddFloat64Vector [
 	
 	stream nextPut: 236; nextPut: 0.
 ]

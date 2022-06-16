@@ -89,6 +89,24 @@ IRBytecodeGenerator class >> newWithEncoderClass: class [
 		yourself
 ]
 
+{ #category : #bytecodes }
+IRBytecodeGenerator >> addFloat32Vector [
+
+	stack pop: 2.
+	stack push.
+	
+	^ encoder genAddFloat32Vector
+]
+
+{ #category : #bytecodes }
+IRBytecodeGenerator >> addFloat64Vector [
+
+	stack pop: 2.
+	stack push.
+	
+	^ encoder genAddFloat64Vector
+]
+
 { #category : #private }
 IRBytecodeGenerator >> addLastLiteral: object [
 	lastLiteral ifNil: [ ^ lastLiteral := object ].
@@ -119,15 +137,6 @@ IRBytecodeGenerator >> addProperties: cm [
 		ifNotNil: [ cm penultimateLiteral: properties.
 			properties method: cm.
 			properties pragmas do: [ :each | each method: cm ] ]
-]
-
-{ #category : #bytecodes }
-IRBytecodeGenerator >> addVector [
-
-	stack pop: 2.
-	stack push.
-	
-	^ encoder genAddVector
 ]
 
 { #category : #accessing }

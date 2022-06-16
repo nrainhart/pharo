@@ -71,6 +71,18 @@ IRBuilder >> addBlockReturnTopIfRequired [
 							ifFalse: [self blockReturnTop ]
 ]
 
+{ #category : #bytecodes }
+IRBuilder >> addFloat32Vector [
+	
+	self add: (IRInstruction addFloat32Vector)
+]
+
+{ #category : #bytecodes }
+IRBuilder >> addFloat64Vector [
+	
+	self add: (IRInstruction addFloat64Vector)
+]
+
 { #category : #decompiling }
 IRBuilder >> addJumpBackTarget: label to: sequence [
 
@@ -106,12 +118,6 @@ IRBuilder >> addTemp: tempKey [
 { #category : #initialize }
 IRBuilder >> addTemps: newKeys [
 	newKeys do: [ :key | self addTemp: key ]
-]
-
-{ #category : #bytecodes }
-IRBuilder >> addVector [
-	
-	self add: (IRInstruction addVector)
 ]
 
 { #category : #initialize }
@@ -298,6 +304,7 @@ IRBuilder >> properties: aDict [
 
 { #category : #'as yet unclassified' }
 IRBuilder >> pushArrayToRegister [
+
 	self add: (IRInstruction pushArrayToRegister)
 ]
 

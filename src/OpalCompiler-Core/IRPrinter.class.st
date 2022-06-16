@@ -27,9 +27,15 @@ IRPrinter >> stream: stringWriteStream [
 ]
 
 { #category : #visiting }
-IRPrinter >> visitAddVector: addVector [
+IRPrinter >> visitAddFloat32Vector: addVector [
 	  
-	stream nextPutAll: 'addVector'
+	stream nextPutAll: 'addFloat32Vector'
+]
+
+{ #category : #visiting }
+IRPrinter >> visitAddFloat64Vector: addVector [
+	  
+	stream nextPutAll: 'addFloat64Vector'
 ]
 
 { #category : #visiting }

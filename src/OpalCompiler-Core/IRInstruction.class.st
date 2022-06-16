@@ -29,9 +29,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-IRInstruction class >> addVector [
+IRInstruction class >> addFloat32Vector [
 	
-	^ IRAddVector new
+	^ IRAddFloat32Vector new
+]
+
+{ #category : #'instance creation' }
+IRInstruction class >> addFloat64Vector [
+	
+	^ IRAddFloat64Vector new
 ]
 
 { #category : #'instance creation' }
@@ -203,8 +209,7 @@ IRInstruction class >> storeTemp: aName [
 
 { #category : #visiting }
 IRInstruction >> accept: aVisitor [
-	
-	^ aVisitor visitAddVector: self
+	self subclassResponsibility
 ]
 
 { #category : #adding }

@@ -33,7 +33,7 @@ IRBuilderTest >> testAddVector [
 				addTemps: { #firstVector. #secondVector };
 				pushTemp: #firstVector;
 				pushTemp: #secondVector;
-				addVector;
+				addFloat64Vector;
 				returnTop
 		 ].
 

@@ -66,6 +66,19 @@ RBMethodNode >> generate: trailer [
 { #category : #'*OpalCompiler-Core' }
 RBMethodNode >> generateIR [
 	| ir |
+	
+	(self hasPragmaNamed: #opalBytecodeMethod) ifTrue: [ | copy pragmaNode |
+		copy := self copy.
+		copy arguments: #().
+		copy selector: #irDoIt.
+		pragmaNode := copy pragmaNamed: #opalBytecodeMethod.
+		copy removePragma: pragmaNode.
+		ir := copy generateIR compiledMethod valueWithReceiver: nil arguments: #().
+		ir sourceNode: self.
+		ir addPragma: pragmaNode asPragma.
+		^ ir
+	].
+	
 	scope ifNil: [self doSemanticAnalysis].
  	ir := (self compilationContext astTranslatorClass new
 			visitNode: self)

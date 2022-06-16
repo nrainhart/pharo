@@ -8,7 +8,13 @@ Class {
 }
 
 { #category : #visiting }
-IRVisitor >> visitAddVector: anIRAddVector [ 
+IRVisitor >> visitAddFloat32Vector: anIRAddVector [ 
+	
+	
+]
+
+{ #category : #visiting }
+IRVisitor >> visitAddFloat64Vector: anIRAddVector [ 
 	
 	
 ]

@@ -111,9 +111,15 @@ IRTranslator >> trailer: aTrailer [
 ]
 
 { #category : #visiting }
-IRTranslator >> visitAddVector: anAddVector [
+IRTranslator >> visitAddFloat32Vector: anAddVector [
 
-	^ gen addVector
+	^ gen addFloat32Vector
+]
+
+{ #category : #visiting }
+IRTranslator >> visitAddFloat64Vector: anAddVector [
+
+	^ gen addFloat64Vector
 ]
 
 { #category : #visiting }

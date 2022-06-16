@@ -9,7 +9,12 @@ Class {
 }
 
 { #category : #'extended instruction decoding' }
-InstructionClient >> addVector [
+InstructionClient >> addFloat32Vector [
+
+]
+
+{ #category : #'extended instruction decoding' }
+InstructionClient >> addFloat64Vector [
 
 ]
 
@@ -80,7 +85,7 @@ InstructionClient >> jump: offset withInterpreter: anInterpreter [
 InstructionClient >> mappedInlinePrimitive: extensionBytecodeNumber [
 
 	({ 
-		 [ self addVector ].
+		 [ self addFloat64Vector ].
 		 [ self pushArrayToRegister ].
 		 [ self storeRegisterIntoArray ] } at: extensionBytecodeNumber + 1)
 		value
