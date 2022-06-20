@@ -519,15 +519,6 @@ IRBytecodeGenerator >> properties: propDict [
 	properties := propDict.
 ]
 
-{ #category : #bytecodes }
-IRBytecodeGenerator >> pushArrayToRegister [
-
-	stack pop: 2.
-	stack push.
-	
-	^ encoder genPushArrayToRegister
-]
-
 { #category : #instructions }
 IRBytecodeGenerator >> pushConsArray: size [
 	stack push.
@@ -539,6 +530,24 @@ IRBytecodeGenerator >> pushConsArray: size [
 IRBytecodeGenerator >> pushDup [
 	stack push.
 	encoder genDup
+]
+
+{ #category : #bytecodes }
+IRBytecodeGenerator >> pushFloat32ArrayToRegister [
+
+	stack pop: 2.
+	stack push.
+	
+	^ encoder genPushFloat32ArrayToRegister
+]
+
+{ #category : #bytecodes }
+IRBytecodeGenerator >> pushFloat64ArrayToRegister [
+
+	stack pop: 2.
+	stack push.
+	
+	^ encoder genPushFloat64ArrayToRegister
 ]
 
 { #category : #instructions }
@@ -710,6 +719,22 @@ IRBytecodeGenerator >> stackFrameSize [
 	^ (stacks collect: [:s | s length]) max
 ]
 
+{ #category : #visiting }
+IRBytecodeGenerator >> storeFloat32RegisterIntoArray [
+	stack pop: 3.
+	stack push.
+	
+	^ encoder genStoreFloat32RegisterIntoArray
+]
+
+{ #category : #visiting }
+IRBytecodeGenerator >> storeFloat64RegisterIntoArray [
+	stack pop: 3.
+	stack push.
+	
+	^ encoder genStoreFloat64RegisterIntoArray
+]
+
 { #category : #instructions }
 IRBytecodeGenerator >> storeInstVar: index [ 
 	forceLongForm 
@@ -747,14 +772,6 @@ IRBytecodeGenerator >> storePopRemoteTemp: tempIndex inVectorAt: tempVectorIndex
 IRBytecodeGenerator >> storePopTemp: index [
 	stack pop. 
 	encoder genStorePopTemp: index - 1
-]
-
-{ #category : #visiting }
-IRBytecodeGenerator >> storeRegisterIntoArray [
-	stack pop: 3.
-	stack push.
-	
-	^ encoder genStoreRegisterIntoArray
 ]
 
 { #category : #instructions }

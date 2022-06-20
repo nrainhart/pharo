@@ -302,12 +302,6 @@ IRBuilder >> properties: aDict [
 	ir properties: aDict
 ]
 
-{ #category : #'as yet unclassified' }
-IRBuilder >> pushArrayToRegister [
-
-	self add: (IRInstruction pushArrayToRegister)
-]
-
 { #category : #instructions }
 IRBuilder >> pushConsArray: size [
 
@@ -318,6 +312,18 @@ IRBuilder >> pushConsArray: size [
 IRBuilder >> pushDup [
 
 	self add: IRInstruction pushDup
+]
+
+{ #category : #'as yet unclassified' }
+IRBuilder >> pushFloat32ArrayToRegister [
+
+	self add: (IRInstruction pushFloat32ArrayToRegister)
+]
+
+{ #category : #'as yet unclassified' }
+IRBuilder >> pushFloat64ArrayToRegister [
+
+	self add: (IRInstruction pushFloat64ArrayToRegister)
 ]
 
 { #category : #instructions }
@@ -432,6 +438,18 @@ IRBuilder >> startNewSequence [
 	currentSequence := newSequence.
 ]
 
+{ #category : #'as yet unclassified' }
+IRBuilder >> storeFloat32RegisterIntoArray [
+	
+	^ self add: (IRInstruction storeFloat32RegisterIntoArray)
+]
+
+{ #category : #'as yet unclassified' }
+IRBuilder >> storeFloat64RegisterIntoArray [
+	
+	^ self add: (IRInstruction storeFloat64RegisterIntoArray)
+]
+
 { #category : #instructions }
 IRBuilder >> storeInstVar: name [
 
@@ -442,12 +460,6 @@ IRBuilder >> storeInstVar: name [
 IRBuilder >> storeIntoLiteralVariable: name [
 	
 	^self add: (IRInstruction storeIntoLiteralVariable: name)
-]
-
-{ #category : #'as yet unclassified' }
-IRBuilder >> storeRegisterIntoArray [
-	
-	^ self add: (IRInstruction storeRegisterIntoArray)
 ]
 
 { #category : #instructions }

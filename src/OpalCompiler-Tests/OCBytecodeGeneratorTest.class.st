@@ -35,21 +35,21 @@ OCBytecodeGeneratorTest >> addFloat32Vector: arg1 with: arg2 intoVector: arg3 [
 
 					pushTemp: #i;
 					pushTemp: #firstVector;
-					pushArrayToRegister;
+					pushFloat64ArrayToRegister;
 
 					pushTemp: #i;
 					pushTemp: #secondVector;
-					pushArrayToRegister;
+					pushFloat64ArrayToRegister;
 
 					addFloat32Vector;
 
 					pushTemp: #i;
 					pushTemp: #thirdVector;
-					storeRegisterIntoArray;
+					storeFloat64RegisterIntoArray;
 					popTop;
 
 				pushTemp: #i;
-				pushLiteral: 2;
+				pushLiteral: 4;
 				send: #+;
 				storeTemp: #i;
 				popTop;
@@ -64,53 +64,13 @@ OCBytecodeGeneratorTest >> addFloat32Vector: arg1 with: arg2 intoVector: arg3 [
 { #category : #'as yet unclassified' }
 OCBytecodeGeneratorTest >> addFloat64Vector: arg1 with: arg2 intoVector: arg3 [
 
-	<opalBytecodeMethod>
-	^ IRBuilder buildIR: [ :builder |"TODO handle arrays with an odd number of elements"
-		builder
-				numArgs: 3; 		
-				addTemps: { #firstVector. #secondVector. #thirdVector. #i. #end };
-
-				pushLiteral: 0;
-				storeTemp: #i;
-				popTop;
-
-				pushTemp: #firstVector;
-				send: #size;
-				storeTemp: #end;
-				popTop;
-				jumpBackTarget: #loop;
-
-				pushTemp: #end;
-				pushTemp: #i;
-				send: #=;
-				jumpAheadTo: #exit if: true;
-
-					pushTemp: #i;
-					pushTemp: #firstVector;
-					pushArrayToRegister;
-
-					pushTemp: #i;
-					pushTemp: #secondVector;
-					pushArrayToRegister;
-
-					addFloat64Vector;
-
-					pushTemp: #i;
-					pushTemp: #thirdVector;
-					storeRegisterIntoArray;
-					popTop;
-
-				pushTemp: #i;
-				pushLiteral: 2;
-				send: #+;
-				storeTemp: #i;
-				popTop;
-
-				jumpBackTo: #loop;
-				jumpAheadTarget: #exit;
-				pushTemp: #thirdVector;
-				returnTop
-		 ].
+	| tmp1 tmp2 |
+	tmp1 := 0.
+	tmp2 := arg1 size.
+	[ tmp2 = tmp1 ] whileFalse: [ 
+		arg3.
+		tmp1 := tmp1 + 2 ].
+	^ arg3
 ]
 
 { #category : #'as yet unclassified' }
@@ -132,9 +92,10 @@ OCBytecodeGeneratorTest >> addVector: arg1 with: arg2 intoVector: arg3 [
 ]
 
 { #category : #'as yet unclassified' }
-OCBytecodeGeneratorTest >> addVectorScalar: x with: y intoVector: z [
+OCBytecodeGeneratorTest >> addVectorScalar: term1 with: term2 intoVector: result [
 
-	^ 1 to: x size do: [ :i | z at: i put: ((x at: i) + (y at: i)) ]
+	^ 1 to: term1 size do: [ :i | 
+	  result at: i put: (term1 at: i) + (term2 at: i) ]
 ]
 
 { #category : #helper }
@@ -208,13 +169,13 @@ OCBytecodeGeneratorTest >> testExample2 [
 OCBytecodeGeneratorTest >> testFloat32ArraySumUsingVectorBytecode [
 	| x y result z |
 
-	x := FloatArray withAll: #(1.0 2.0 3.0 4.0 5.0 6.0).
-	y := FloatArray withAll: #(10.0 20.0 30.0 40.0 50.0 60.0).
-	z := FloatArray new: 6.
+	x := FloatArray withAll: #(1.0 2.0 3.0 4.0).
+	y := FloatArray withAll: #(10.0 20.0 30.0 40.0).
+	z := FloatArray new: 4.
 
 	result := self addFloat32Vector: x with: y intoVector: z.
 
-	self assertCollection: result equals: (FloatArray withAll: #(11.0 22.0 33.0 44.0 55.0 66.0)).
+	self assertCollection: result equals: (FloatArray withAll: #(11.0 22.0 33.0 44.0)).
 ]
 
 { #category : #'tests - execution' }
@@ -246,14 +207,14 @@ OCBytecodeGeneratorTest >> testFloat64ArraySumUsingVectorBytecode [
 				jumpAheadTo: #exit if: true;
 					pushTemp: #i;
 					pushTemp: #firstVector;
-					pushArrayToRegister;
+					pushFloat64ArrayToRegister;
 					pushTemp: #i;
 					pushTemp: #secondVector;
-					pushArrayToRegister;
+					pushFloat64ArrayToRegister;
 					addFloat64Vector;
 					pushTemp: #i;
 					pushTemp: #thirdVector;
-					storeRegisterIntoArray;
+					storeFloat64RegisterIntoArray;
 					popTop;
 				pushTemp: #i;
 				pushLiteral: 2;

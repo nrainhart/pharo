@@ -119,15 +119,21 @@ IRPrinter >> visitPushArray: array [
 ]
 
 { #category : #visiting }
-IRPrinter >> visitPushArrayToRegister:  pushArrayToRegister [
-	
-	stream nextPutAll: 'pushArrayToRegister'
-]
-
-{ #category : #visiting }
 IRPrinter >> visitPushDup: dup [
 	
 	stream nextPutAll: 'pushDup'
+]
+
+{ #category : #visiting }
+IRPrinter >> visitPushFloat32ArrayToRegister:  pushFloat32ArrayToRegister [
+	
+	stream nextPutAll: 'pushFloat32ArrayToRegister'
+]
+
+{ #category : #visiting }
+IRPrinter >> visitPushFloat64ArrayToRegister:  pushFloat64ArrayToRegister [
+	
+	stream nextPutAll: 'pushFloat64ArrayToRegister'
 ]
 
 { #category : #visiting }
@@ -247,6 +253,18 @@ IRPrinter >> visitSequence: instructionSequence [
 ]
 
 { #category : #visiting }
+IRPrinter >> visitStoreFloat32RegisterIntoArray:  storeFloat32RegisterIntoArray [
+	
+	stream nextPutAll: 'storeFloat32RegisterIntoArray'
+]
+
+{ #category : #visiting }
+IRPrinter >> visitStoreFloat64RegisterIntoArray:  storeFloat64RegisterIntoArray [
+	
+	stream nextPutAll: 'storeFloat64RegisterIntoArray'
+]
+
+{ #category : #visiting }
 IRPrinter >> visitStoreInstVar: instVar [
 	stream nextPutAll: 'storeInstVar: '.
    instVar index printOn: stream.
@@ -260,12 +278,6 @@ IRPrinter >> visitStoreLiteralVariable: var [
 	stream nextPutAll: 'storeLiteralVariable: '.
 	object isVariableBinding ifTrue: [^ stream nextPutAll: object key].
 	object printOn: stream.
-]
-
-{ #category : #visiting }
-IRPrinter >> visitStoreRegisterIntoArray:  storeRegisterIntoArray [
-	
-	stream nextPutAll: 'storeRegisterIntoArray'
 ]
 
 { #category : #visiting }

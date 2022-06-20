@@ -75,11 +75,15 @@ IRVisitor >> visitPushArray: pushArray [
 ]
 
 { #category : #visiting }
-IRVisitor >> visitPushArrayToRegister: pushArrayToRegister [
+IRVisitor >> visitPushDup: pushDup [
 ]
 
 { #category : #visiting }
-IRVisitor >> visitPushDup: pushDup [
+IRVisitor >> visitPushFloat32ArrayToRegister: pushArrayToRegister [
+]
+
+{ #category : #visiting }
+IRVisitor >> visitPushFloat64ArrayToRegister: pushFloat64ArrayToRegister [
 ]
 
 { #category : #visiting }
@@ -144,15 +148,19 @@ IRVisitor >> visitSequence: sequence [
 ]
 
 { #category : #visiting }
+IRVisitor >> visitStoreFloat32RegisterIntoArray: storeRegisterIntoArray [ 
+]
+
+{ #category : #visiting }
+IRVisitor >> visitStoreFloat64RegisterIntoArray: storeRegisterIntoArray [ 
+]
+
+{ #category : #visiting }
 IRVisitor >> visitStoreInstVar: storeInstVar [
 ]
 
 { #category : #visiting }
 IRVisitor >> visitStoreLiteralVariable: storeLiteralVariable [
-]
-
-{ #category : #visiting }
-IRVisitor >> visitStoreRegisterIntoArray: storeRegisterIntoArray [ 
 ]
 
 { #category : #visiting }

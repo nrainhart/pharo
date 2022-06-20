@@ -59,11 +59,6 @@ IRInstruction class >> popTop [
 	^ IRPop new
 ]
 
-{ #category : #'as yet unclassified' }
-IRInstruction class >> pushArrayToRegister [
-	^ IRPushArrayToRegister new.
-]
-
 { #category : #'instance creation' }
 IRInstruction class >> pushConsArray: aSize [ 
 	^IRPushArray new
@@ -76,6 +71,16 @@ IRInstruction class >> pushConsArray: aSize [
 IRInstruction class >> pushDup [
 
 	^ IRPushDup new
+]
+
+{ #category : #'as yet unclassified' }
+IRInstruction class >> pushFloat32ArrayToRegister [
+	^ IRPushFloat32ArrayToRegister new.
+]
+
+{ #category : #'as yet unclassified' }
+IRInstruction class >> pushFloat64ArrayToRegister [
+	^ IRPushFloat64ArrayToRegister new.
 ]
 
 { #category : #'instance creation' }
@@ -172,6 +177,16 @@ IRInstruction class >> send: selector toSuperOf: behavior [
 		yourself.
 ]
 
+{ #category : #'as yet unclassified' }
+IRInstruction class >> storeFloat32RegisterIntoArray [
+	^ IRStoreFloat32RegisterIntoArray new
+]
+
+{ #category : #'as yet unclassified' }
+IRInstruction class >> storeFloat64RegisterIntoArray [
+	^ IRStoreFloat64RegisterIntoArray new
+]
+
 { #category : #'instance creation' }
 IRInstruction class >> storeInstVar: index [
 	^ IRStoreInstVar new 
@@ -185,11 +200,6 @@ IRInstruction class >> storeIntoLiteralVariable: object [
 	^ IRStoreLiteralVariable new
 		association: object;
 		yourself
-]
-
-{ #category : #'as yet unclassified' }
-IRInstruction class >> storeRegisterIntoArray [
-	^ IRStoreRegisterIntoArray new
 ]
 
 { #category : #'instance creation' }

@@ -905,7 +905,7 @@ EncoderForSistaV1 class >> unusedBytecode [
 { #category : #'bytecode generation' }
 EncoderForSistaV1 >> genAddFloat32Vector [
 	
-	stream nextPut: 236; nextPut: 0.
+	stream nextPut: 236; nextPut: 3.
 ]
 
 { #category : #'bytecode generation' }
@@ -1032,12 +1032,6 @@ EncoderForSistaV1 >> genPop [
 	stream nextPut: 216
 ]
 
-{ #category : #'as yet unclassified' }
-EncoderForSistaV1 >> genPushArrayToRegister [
-
-	stream nextPut: 236; nextPut: 1.
-]
-
 { #category : #'bytecode generation' }
 EncoderForSistaV1 >> genPushCharacter: aCharacterOrCode [
 	"233		11101001	i i i i i i i i	Push Character #iiiiiiii (+ Extend B * 256)"
@@ -1066,6 +1060,18 @@ EncoderForSistaV1 >> genPushConsArray: size [
 	stream
 		nextPut: 231;
 		nextPut: size + 128
+]
+
+{ #category : #'as yet unclassified' }
+EncoderForSistaV1 >> genPushFloat32ArrayToRegister [
+
+	stream nextPut: 236; nextPut: 4.
+]
+
+{ #category : #'as yet unclassified' }
+EncoderForSistaV1 >> genPushFloat64ArrayToRegister [
+
+	stream nextPut: 236; nextPut: 1.
 ]
 
 { #category : #'extended bytecode generation' }
@@ -1381,6 +1387,18 @@ EncoderForSistaV1 >> genSignedSingleExtendB: extendedIndex [
 		nextPut: (extendedIndex >= 0 ifTrue: [extendedIndex] ifFalse: [extendedIndex + 256])
 ]
 
+{ #category : #'as yet unclassified' }
+EncoderForSistaV1 >> genStoreFloat32RegisterIntoArray [
+
+	stream nextPut: 236; nextPut: 5.
+]
+
+{ #category : #'as yet unclassified' }
+EncoderForSistaV1 >> genStoreFloat64RegisterIntoArray [
+
+	stream nextPut: 236; nextPut: 2.
+]
+
 { #category : #'bytecode generation' }
 EncoderForSistaV1 >> genStoreInstVar: instVarIndex [
 	"243		11110011	iiiiiiii		Store Receiver Variable #iiiiiii (+ Extend A * 256)"
@@ -1470,12 +1488,6 @@ EncoderForSistaV1 >> genStorePopTemp: tempIndex [
 	stream
 		nextPut: 242;
 		nextPut: tempIndex
-]
-
-{ #category : #'as yet unclassified' }
-EncoderForSistaV1 >> genStoreRegisterIntoArray [
-
-	stream nextPut: 236; nextPut: 2.
 ]
 
 { #category : #'bytecode generation' }

@@ -86,8 +86,11 @@ InstructionClient >> mappedInlinePrimitive: extensionBytecodeNumber [
 
 	({ 
 		 [ self addFloat64Vector ].
-		 [ self pushArrayToRegister ].
-		 [ self storeRegisterIntoArray ] } at: extensionBytecodeNumber + 1)
+		 [ self pushFloat64ArrayToRegister ].
+		 [ self storeFloat64RegisterIntoArray ].
+		 [ self addFloat32Vector ].
+		 [ self pushFloat32ArrayToRegister ].
+		 [ self storeFloat32RegisterIntoArray ] } at: extensionBytecodeNumber + 1)
 		value
 ]
 
@@ -142,10 +145,6 @@ InstructionClient >> pushActiveProcess [
 	"Push Active Process On Top Of Its Own Stack bytecode."
 ]
 
-{ #category : #'extended instruction decoding' }
-InstructionClient >> pushArrayToRegister [
-]
-
 { #category : #'instruction decoding' }
 InstructionClient >> pushClosureTemps: numTemps [
 	"push on stack nil numTemps times for the closure temps"
@@ -159,6 +158,14 @@ InstructionClient >> pushConsArrayWithElements: numElements [
 { #category : #'instruction decoding' }
 InstructionClient >> pushConstant: value [
 	"Push Constant, value, on Top Of Stack bytecode."
+]
+
+{ #category : #'extended instruction decoding' }
+InstructionClient >> pushFloat32ArrayToRegister [
+]
+
+{ #category : #'extended instruction decoding' }
+InstructionClient >> pushFloat64ArrayToRegister [
 ]
 
 { #category : #'instruction decoding' }
@@ -207,6 +214,14 @@ InstructionClient >> send: selector super: supered numArgs: numberArguments [
 	below them."
 ]
 
+{ #category : #'extended instruction decoding' }
+InstructionClient >> storeFloat32RegisterIntoArray [
+]
+
+{ #category : #'extended instruction decoding' }
+InstructionClient >> storeFloat64RegisterIntoArray [
+]
+
 { #category : #'instruction decoding' }
 InstructionClient >> storeIntoLiteralVariable: anAssociation [ 
 	"Store Top Of Stack Into Literal Variable Of Method bytecode."
@@ -225,10 +240,6 @@ InstructionClient >> storeIntoRemoteTemp: remoteTempIndex inVectorAt: tempVector
 { #category : #'instruction decoding' }
 InstructionClient >> storeIntoTemporaryVariable: offset [ 
 	"Store Top Of Stack Into Temporary Variable Of Method bytecode."
-]
-
-{ #category : #'extended instruction decoding' }
-InstructionClient >> storeRegisterIntoArray [
 ]
 
 { #category : #'instruction decoding' }

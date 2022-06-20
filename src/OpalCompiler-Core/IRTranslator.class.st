@@ -207,14 +207,19 @@ IRTranslator >> visitPushArray: array [
 ]
 
 { #category : #visiting }
-IRTranslator >> visitPushArrayToRegister: pushArrayToRegister [
-	^ gen pushArrayToRegister
-]
-
-{ #category : #visiting }
 IRTranslator >> visitPushDup: dup [
 	
 	gen pushDup
+]
+
+{ #category : #visiting }
+IRTranslator >> visitPushFloat32ArrayToRegister: pushFloat32ArrayToRegister [
+	^ gen pushFloat32ArrayToRegister
+]
+
+{ #category : #visiting }
+IRTranslator >> visitPushFloat64ArrayToRegister: pushFloat64ArrayToRegister [
+	^ gen pushFloat64ArrayToRegister
 ]
 
 { #category : #visiting }
@@ -322,6 +327,16 @@ IRTranslator >> visitSequences:  irSequences [
 ]
 
 { #category : #visiting }
+IRTranslator >> visitStoreFloat32RegisterIntoArray: storeFloat64RegisterIntoArray [
+	gen storeFloat32RegisterIntoArray.
+]
+
+{ #category : #visiting }
+IRTranslator >> visitStoreFloat64RegisterIntoArray: storeFloat64RegisterIntoArray [
+	gen storeFloat64RegisterIntoArray.
+]
+
+{ #category : #visiting }
 IRTranslator >> visitStoreInstVar: instVar [
 	gen storeInstVar: instVar index
 ]
@@ -330,11 +345,6 @@ IRTranslator >> visitStoreInstVar: instVar [
 IRTranslator >> visitStoreLiteralVariable: var [
 
 	gen storeIntoLiteralVariable: var association
-]
-
-{ #category : #visiting }
-IRTranslator >> visitStoreRegisterIntoArray: storeRegisterIntoArray [
-	gen storeRegisterIntoArray.
 ]
 
 { #category : #visiting }
