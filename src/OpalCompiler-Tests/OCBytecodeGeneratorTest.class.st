@@ -35,17 +35,17 @@ OCBytecodeGeneratorTest >> addFloat32Vector: arg1 with: arg2 intoVector: arg3 [
 
 					pushTemp: #i;
 					pushTemp: #firstVector;
-					pushFloat64ArrayToRegister;
+					pushFloat32ArrayToRegister;
 
 					pushTemp: #i;
 					pushTemp: #secondVector;
-					pushFloat64ArrayToRegister;
+					pushFloat32ArrayToRegister;
 
 					addFloat32Vector;
 
 					pushTemp: #i;
 					pushTemp: #thirdVector;
-					storeFloat64RegisterIntoArray;
+					storeFloat32RegisterIntoArray;
 					popTop;
 
 				pushTemp: #i;
@@ -64,13 +64,168 @@ OCBytecodeGeneratorTest >> addFloat32Vector: arg1 with: arg2 intoVector: arg3 [
 { #category : #'as yet unclassified' }
 OCBytecodeGeneratorTest >> addFloat64Vector: arg1 with: arg2 intoVector: arg3 [
 
-	| tmp1 tmp2 |
-	tmp1 := 0.
-	tmp2 := arg1 size.
-	[ tmp2 = tmp1 ] whileFalse: [ 
-		arg3.
-		tmp1 := tmp1 + 2 ].
-	^ arg3
+	<opalBytecodeMethod>
+	^ IRBuilder buildIR: [ :builder |"TODO handle arrays with a number of elements that is not a multiple of 4"
+		builder
+				numArgs: 3; 		
+				addTemps: { #firstVector. #secondVector. #thirdVector. #i. #end };
+
+				pushLiteral: 0;
+				storeTemp: #i;
+				popTop;
+
+				pushTemp: #firstVector;
+				send: #size;
+				storeTemp: #end;
+				popTop;
+				jumpBackTarget: #loop;
+
+				pushTemp: #end;
+				pushTemp: #i;
+				send: #=;
+				jumpAheadTo: #exit if: true;
+
+					pushTemp: #i;
+					pushTemp: #firstVector;
+					pushFloat64ArrayToRegister;
+
+					pushTemp: #i;
+					pushTemp: #secondVector;
+					pushFloat64ArrayToRegister;
+
+					addFloat64Vector;
+
+					pushTemp: #i;
+					pushTemp: #thirdVector;
+					storeFloat64RegisterIntoArray;
+					popTop;
+
+				pushTemp: #i;
+				pushLiteral: 2;
+				send: #+;
+				storeTemp: #i;
+				popTop;
+
+				jumpBackTo: #loop;
+				jumpAheadTarget: #exit;
+				pushTemp: #thirdVector;
+				returnTop
+		 ].
+]
+
+{ #category : #'as yet unclassified' }
+OCBytecodeGeneratorTest >> addFloat64VectorUnrolled: arg1 with: arg2 intoVector: arg3 [
+
+	<opalBytecodeMethod>
+	^ IRBuilder buildIR: [ :builder |"TODO handle arrays with a number of elements that is not a multiple of 4"
+		builder
+				numArgs: 3; 		
+				addTemps: { #firstVector. #secondVector. #thirdVector. #i. #end };
+
+				pushLiteral: 0;
+				storeTemp: #i;
+				popTop;
+
+				pushTemp: #firstVector;
+				send: #size;
+				storeTemp: #end;
+				popTop;
+				jumpBackTarget: #loop;
+
+				pushTemp: #end;
+				pushTemp: #i;
+				send: #=;
+				jumpAheadTo: #exit if: true;
+
+					pushTemp: #i;
+					pushTemp: #firstVector;
+					pushFloat64ArrayToRegister;
+
+					pushTemp: #i;
+					pushTemp: #secondVector;
+					pushFloat64ArrayToRegister;
+
+					addFloat64Vector;
+
+					pushTemp: #i;
+					pushTemp: #thirdVector;
+					storeFloat64RegisterIntoArray;
+					popTop;
+					
+					pushTemp: #i;
+					pushLiteral: 2;
+					send: #+;
+					storeTemp: #i;
+					popTop;
+					
+					pushTemp: #i;
+					pushTemp: #firstVector;
+					pushFloat64ArrayToRegister;
+
+					pushTemp: #i;
+					pushTemp: #secondVector;
+					pushFloat64ArrayToRegister;
+
+					addFloat64Vector;
+
+					pushTemp: #i;
+					pushTemp: #thirdVector;
+					storeFloat64RegisterIntoArray;
+					popTop;
+					
+					pushTemp: #i;
+					pushLiteral: 2;
+					send: #+;
+					storeTemp: #i;
+					popTop;
+					
+					pushTemp: #i;
+					pushTemp: #firstVector;
+					pushFloat64ArrayToRegister;
+
+					pushTemp: #i;
+					pushTemp: #secondVector;
+					pushFloat64ArrayToRegister;
+
+					addFloat64Vector;
+
+					pushTemp: #i;
+					pushTemp: #thirdVector;
+					storeFloat64RegisterIntoArray;
+					popTop;
+					
+					pushTemp: #i;
+					pushLiteral: 2;
+					send: #+;
+					storeTemp: #i;
+					popTop;
+					
+					pushTemp: #i;
+					pushTemp: #firstVector;
+					pushFloat64ArrayToRegister;
+
+					pushTemp: #i;
+					pushTemp: #secondVector;
+					pushFloat64ArrayToRegister;
+
+					addFloat64Vector;
+
+					pushTemp: #i;
+					pushTemp: #thirdVector;
+					storeFloat64RegisterIntoArray;
+					popTop;
+					
+					pushTemp: #i;
+					pushLiteral: 2;
+					send: #+;
+					storeTemp: #i;
+					popTop;
+
+				jumpBackTo: #loop;
+				jumpAheadTarget: #exit;
+				pushTemp: #thirdVector;
+				returnTop
+		 ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,6 +244,14 @@ OCBytecodeGeneratorTest >> addVector: arg1 with: arg2 intoVector: arg3 [
 		arg3.
 		tmp1 := tmp1 + 2 ].
 	^ arg3
+]
+
+{ #category : #'as yet unclassified' }
+OCBytecodeGeneratorTest >> addVectorPrimitive: term1 with: term2 intoVector: result [
+
+	<primitive: 574>
+	^ 1 to: term1 size do: [ :i | 
+	  result at: i put: (term1 at: i) + (term2 at: i) ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -115,6 +278,65 @@ OCBytecodeGeneratorTest >> gaddFloat32Vector: v1 with: v2 intoVector: v3 [
 		v3 vector128At: i put: (register1 addFloat32with: register2).
 		i := i + 4 ].
 	^ v3
+]
+
+{ #category : #'as yet unclassified' }
+OCBytecodeGeneratorTest >> subFloat64Vector: arg1 with: arg2 intoVector: arg3 [
+
+	<opalBytecodeMethod>
+	^ IRBuilder buildIR: [ :builder |"TODO handle arrays with a number of elements that is not a multiple of 2"
+		builder
+				numArgs: 3; 		
+				addTemps: { #firstVector. #secondVector. #thirdVector. #i. #end };
+
+				pushLiteral: 0;
+				storeTemp: #i;
+				popTop;
+
+				pushTemp: #firstVector;
+				send: #size;
+				storeTemp: #end;
+				popTop;
+				jumpBackTarget: #loop;
+
+				pushTemp: #end;
+				pushTemp: #i;
+				send: #=;
+				jumpAheadTo: #exit if: true;
+
+					pushTemp: #i;
+					pushTemp: #firstVector;
+					pushFloat64ArrayToRegister;
+
+					pushTemp: #i;
+					pushTemp: #secondVector;
+					pushFloat64ArrayToRegister;
+
+					addFloat64Vector;
+
+					pushTemp: #i;
+					pushTemp: #thirdVector;
+					storeFloat64RegisterIntoArray;
+					popTop;
+
+				pushTemp: #i;
+				pushLiteral: 2;
+				send: #+;
+				storeTemp: #i;
+				popTop;
+
+				jumpBackTo: #loop;
+				jumpAheadTarget: #exit;
+				pushTemp: #thirdVector;
+				returnTop
+		 ].
+]
+
+{ #category : #'as yet unclassified' }
+OCBytecodeGeneratorTest >> subVectorScalar: term1 with: term2 intoVector: result [
+
+	^ 1 to: term1 size do: [ :i | 
+	  result at: i put: (term1 at: i) - (term2 at: i) ]
 ]
 
 { #category : #'tests - execution' }
@@ -182,53 +404,10 @@ OCBytecodeGeneratorTest >> testFloat32ArraySumUsingVectorBytecode [
 OCBytecodeGeneratorTest >> testFloat64ArraySumUsingVectorBytecode [
 	| cm x y result z |
 
-	x := Float64Array withAll: #(1.0 2.0 3.0 4.0 5.0 6.0).
-	y := Float64Array withAll: #(10.0 20.0 30.0 40.0 50.0 60.0).
-	z := Float64Array new: 6.
-		
-	cm := IRBuilder buildMethod: [ :builder |"TODO handle arrays with an odd number of elements"
-		builder
-				numArgs: 3; 		
-				addTemps: { #firstVector. #secondVector. #thirdVector. #i. #end };
-				"storeTemp: #thirdVector;
-				storeTemp: #secondVector;
-				storeTemp: #firstVector;" "Not needed. Temps are automatically populated from args"
-				pushLiteral: 0;
-				storeTemp: #i;
-				popTop; "storeTemp does not pop the element from the stack"
-				pushTemp: #firstVector;
-				send: #size;
-				storeTemp: #end;
-				popTop;
-				jumpBackTarget: #loop;
-				pushTemp: #end;
-				pushTemp: #i;
-				send: #=;
-				jumpAheadTo: #exit if: true;
-					pushTemp: #i;
-					pushTemp: #firstVector;
-					pushFloat64ArrayToRegister;
-					pushTemp: #i;
-					pushTemp: #secondVector;
-					pushFloat64ArrayToRegister;
-					addFloat64Vector;
-					pushTemp: #i;
-					pushTemp: #thirdVector;
-					storeFloat64RegisterIntoArray;
-					popTop;
-				pushTemp: #i;
-				pushLiteral: 2;
-				send: #+;
-				storeTemp: #i;
-				popTop;
-				jumpBackTo: #loop;
-				jumpAheadTarget: #exit;
-				pushTemp: #thirdVector;
-				returnTop
-		 ].
-	
-	self class addSelector: #addFloat64Vector:with:intoVector: withMethod: cm.
-	
+	x := Float64Array withAll: (1.0 to: 6.0).
+	y := Float64Array withAll: (x collect: [:i | i * 10]).
+	z := Float64Array new: x size.
+
 	result := self addFloat64Vector: x with: y intoVector: z.
 
 	self assertCollection: result equals: (Float64Array withAll: #(11.0 22.0 33.0 44.0 55.0 66.0)).
@@ -269,16 +448,4 @@ OCBytecodeGeneratorTest >> testTranspiledAddVectorBytecode [
 
 	self assert: (result at: 1) equals: 4.0.
 	self assert: (result at: 2) equals: 6.0.
-]
-
-{ #category : #'as yet unclassified' }
-OCBytecodeGeneratorTest >> toto [
-
-	<opalBytecodeMethod>
-	^ IRBuilder buildIR: [ :builder | "TODO handle arrays with an odd number of elements"
-		  builder
-			  pushLiteral: 1;
-			  pushLiteral: 17;
-			  send: #+;
-			  returnTop ]
 ]
