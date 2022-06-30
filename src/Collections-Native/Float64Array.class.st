@@ -8,7 +8,7 @@ Class {
 { #category : #accessing }
 Float64Array >> at: anIndex [
 
-	^ Float fromIEEE64BitWord: (self basicAt: anIndex) 
+	^ Float fromIEEE64Bit: (self basicAt: anIndex) 
 ]
 
 { #category : #accessing }
