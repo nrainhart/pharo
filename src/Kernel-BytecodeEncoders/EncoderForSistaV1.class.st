@@ -899,6 +899,12 @@ EncoderForSistaV1 class >> unusedBytecode [
 	^ 84
 ]
 
+{ #category : #'mapped inline primitive generators - vectorial' }
+EncoderForSistaV1 >> genAddAcrossFloat32Vector [
+	
+	stream nextPut: 236; nextPut: 9.
+]
+
 { #category : #'bytecode generation' }
 EncoderForSistaV1 >> genBranchPopFalse: distance [
 	(distance > 0 and: [distance < 9]) ifTrue:
@@ -1005,6 +1011,12 @@ EncoderForSistaV1 >> genJumpLong: distance [
 		nextPut: (distance bitAnd: 255)
 ]
 
+{ #category : #'mapped inline primitive generators - vectorial' }
+EncoderForSistaV1 >> genMulFloat32Vector [
+	
+	stream nextPut: 236; nextPut: 7.
+]
+
 { #category : #'extended bytecode generation' }
 EncoderForSistaV1 >> genNop [
 	"95			01011111			Nop"
@@ -1045,6 +1057,12 @@ EncoderForSistaV1 >> genPushConsArray: size [
 	stream
 		nextPut: 231;
 		nextPut: size + 128
+]
+
+{ #category : #'mapped inline primitive generators - vectorial' }
+EncoderForSistaV1 >> genPushFloat32RegisterElement [
+	
+	stream nextPut: 236; nextPut: 8.
 ]
 
 { #category : #'extended bytecode generation' }

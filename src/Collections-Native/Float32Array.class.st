@@ -67,6 +67,11 @@ Float32Array >> dot: aFloatVector [
 	^result
 ]
 
+{ #category : #accessing }
+Float32Array >> forMemory: aMemory inMethod: anObject [ 
+	self shouldBeImplemented.
+]
+
 { #category : #comparing }
 Float32Array >> hash [
 	| result |

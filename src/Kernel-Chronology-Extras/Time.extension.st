@@ -176,6 +176,7 @@ Time class >> milliseconds: currentTime since: lastTime [
 	^ delta < 0
 		ifTrue: [SmallInteger maxVal + delta]
 		ifFalse: [delta]
+
 ]
 
 { #category : #'*Kernel-Chronology-Extras' }
